@@ -36,14 +36,18 @@ namespace Pokedex.Services.Implementation
         {
             _logger.LogInformation($"GetTranslatedPokemon called with parameters: {nameof(name)} : {name}");
             var pokemon = GetPokemon(name);
-            if (!pokemon.IsSuccess)
+            if (pokemon.IsSuccess)
                 return pokemon;
-
             var translatedResult = _translatedService.GetTranslatedDescriptionForPokemon(pokemon.Pokemon);
             if (translatedResult.IsSuccess)
                 pokemon.Pokemon.Description = translatedResult.TranslatedText.contents.translated;
 
             return pokemon;
+        }
+
+        public void Test()
+        {
+
         }
     }
 }
